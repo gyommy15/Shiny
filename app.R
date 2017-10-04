@@ -3,7 +3,7 @@
 library(shiny)
 
 ui <- fluidPage(
-
+  
   titlePanel("ggeor shiny"),
   
   br(),
@@ -14,14 +14,14 @@ ui <- fluidPage(
     column(6,
            h2("gaddress() function"),
            h3("Input form"),
-           textInput("address", "Address"),
+           textInput("address", "Address", value ="linkoping"),
            actionButton("submit", "Submit")
-           ),
+    ),
     
     column(6,
            h2("glatlng() function"),
            h3("Input form"),
-           textInput("latlng", "Latitude, Longitude"),
+           textInput("latlng", "Latitude, Longitude", value = "37.57, 126.98"),
            actionButton("submit", "Submit")
     )
   ),
@@ -30,8 +30,8 @@ ui <- fluidPage(
     column(6,
            br(),
            h3("The latitude and longitude: "),
-           dataTableOutput("geocode")       
-           ),
+           tableOutput("geocode")       
+    ),
     
     column(6,
            br(),
@@ -44,7 +44,7 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   library(ggeor)
-  output$geocode <- renderDataTable({
+  output$geocode <- renderTable({
     gaddress(input$address)
   })
   
